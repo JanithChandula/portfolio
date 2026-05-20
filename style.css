@@ -89,6 +89,21 @@ body {
 .hero-visual { position: relative; }
 .hero-avatar { width: 200px; height: 200px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border-color); }
 
+/* Resume CTA */
+.resume-cta-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+.resume-cta-card h2 { font-size: 1.8rem; color: var(--text-primary); }
+.resume-cta-card p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.5; }
+
 /* About Section */
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
 .about-text p { margin-bottom: 1.5rem; color: var(--text-secondary); }
