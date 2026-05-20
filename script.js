@@ -95,6 +95,61 @@ document.addEventListener('DOMContentLoaded', () => {
         statsObserver.observe(statsSection);
     }
 
+    // 5. Fetch Medium Articles
+    const mediumArticlesContainer = document.getElementById('medium-articles');
+    if (mediumArticlesContainer) {
+        const mediumFeedUrl = 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@janith.chandula';
+        
+        fetch(mediumFeedUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok' && data.items.length > 0) {
+                    mediumArticlesContainer.innerHTML = ''; // Clear loading state
+                    
+                    // Show up to 3 articles
+                    const articles = data.items.slice(0, 3);
+                    
+                    articles.forEach(item => {
+                        // Extract first paragraph for excerpt
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = item.description;
+                        const firstParagraph = tempDiv.querySelector('p') ? tempDiv.querySelector('p').textContent : tempDiv.textContent.substring(0, 150) + '...';
+                        
+                        // Format date
+                        const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        });
+                        
+                        // Extract image
+                        let imageUrl = item.thumbnail;
+                        if (!imageUrl) {
+                            const imgMatch = item.content.match(/<img[^>]+src="([^">]+)"/);
+                            imageUrl = imgMatch ? imgMatch[1] : 'assets/hero.png';
+                        }
 
+                        const articleCard = `
+                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="blog-card">
+                                <img src="${imageUrl}" alt="${item.title}" class="blog-image">
+                                <div class="blog-content">
+                                    <span class="blog-date">${pubDate}</span>
+                                    <h3 class="blog-title">${item.title}</h3>
+                                    <p class="blog-excerpt">${firstParagraph}</p>
+                                    <span class="blog-read-more">Read Article <i class="ph ph-arrow-right"></i></span>
+                                </div>
+                            </a>
+                        `;
+                        mediumArticlesContainer.innerHTML += articleCard;
+                    });
+                } else {
+                    mediumArticlesContainer.innerHTML = '<p class="blog-loading">No articles found.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching Medium articles:', error);
+                mediumArticlesContainer.innerHTML = '<p class="blog-loading">Failed to load articles. Please visit Medium to read my latest posts.</p>';
+            });
+    }
 
 });

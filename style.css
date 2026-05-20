@@ -175,6 +175,21 @@ body {
 .hobby-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .hobby-tech span { font-size: 0.75rem; color: var(--text-secondary); font-family: var(--font-mono); }
 
+/* Blog Section */
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+.blog-card { border: 1px solid var(--border-color); border-radius: var(--border-radius); background: var(--bg-card); overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); text-decoration: none; }
+.blog-card:hover { border-color: var(--text-primary); transform: translateY(-5px); }
+.blog-image { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+.blog-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+.blog-date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem; display: block; }
+.blog-title { font-size: 1.1rem; color: var(--text-primary); margin-bottom: 1rem; line-height: 1.4; font-weight: 600; }
+.blog-excerpt { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.blog-read-more { font-size: 0.85rem; font-family: var(--font-mono); color: var(--text-primary); display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500; }
+.blog-cta { text-align: center; margin-top: 3rem; }
+.blog-loading { grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-secondary); font-family: var(--font-mono); display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-radius: 50%; border-top-color: var(--text-primary); animation: spin 1s ease-in-out infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
 /* Education Section */
 .education-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
 .education-card { border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 2rem; background: var(--bg-card); }
