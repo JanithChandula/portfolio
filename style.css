@@ -201,10 +201,13 @@ body::after {
 .stat-plus { font-size: 1.5rem; font-weight: 700; color: var(--accent-2); }
 .stat-label { display: block; margin-top: 0.15rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-subtle); }
 .stat-divider { width: 1px; height: 2.5rem; background: var(--line); }
-.hero-visual { position: relative; width: 100%; max-width: 24rem; justify-self: end; }
-.hero-visual::before { content: ''; position: absolute; inset: -1rem; z-index: -1; background: var(--accent); opacity: 0.2; filter: blur(64px); }
-.hero-avatar-wrapper { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
-.hero-avatar { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
+.hero-visual { position: relative; width: 100%; max-width: 20rem; justify-self: center; }
+.hero-visual::before { content: ''; position: absolute; inset: -1rem; z-index: -1; border-radius: 50%; background: var(--accent); opacity: 0.22; filter: blur(64px); }
+.hero-avatar-wrapper {
+    overflow: hidden; border-radius: 50%; border: 1px solid var(--line); background: var(--surface);
+    box-shadow: 0 0 0 8px rgba(99, 102, 241, 0.06);
+}
+.hero-avatar { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
 
 @keyframes hero-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 @keyframes hero-pop { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
@@ -423,7 +426,7 @@ body::after {
     .nav-toggle { display: inline-flex; }
     .hero { min-height: auto; padding-top: calc(var(--nav-height) + 2.5rem); }
     .hero-content, .about-grid, .contact-grid { grid-template-columns: 1fr; }
-    .hero-visual { grid-row: 1; justify-self: center; max-width: 13rem; }
+    .hero-visual { grid-row: 1; max-width: 11rem; }
     .hero-text { text-align: center; }
     .hero-description { margin: 0 auto 2rem; }
     .hero-actions, .hero-stats { justify-content: center; }
