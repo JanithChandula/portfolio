@@ -21,18 +21,47 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. Navbar Background on Scroll
+    // 2. Navbar Background & Scroll Progress
     const navbar = document.getElementById('navbar');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(10, 14, 23, 0.95)';
-            navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.5)';
-        } else {
-            navbar.style.background = 'rgba(10, 14, 23, 0.8)';
-            navbar.style.boxShadow = 'none';
+    const scrollProgress = document.getElementById('scroll-progress');
+
+    const onScroll = () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 10);
+        if (scrollProgress) {
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = scrollable > 0 ? Math.min(window.scrollY / scrollable, 1) : 0;
+            scrollProgress.style.transform = `scaleX(${progress})`;
         }
-    });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+
+    // 2b. Reveal Elements on Scroll
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealObserver = prefersReducedMotion ? null : new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -60px 0px' });
+
+    const observeReveal = (elements) => {
+        if (!revealObserver) return;
+        elements.forEach(el => {
+            const siblings = [...el.parentElement.children];
+            el.style.setProperty('--reveal-delay', `${(siblings.indexOf(el) % 3) * 0.08}s`);
+            el.classList.add('reveal');
+            revealObserver.observe(el);
+        });
+    };
+
+    observeReveal(document.querySelectorAll(
+        '.section-header, .resume-cta-card, .about-text, .about-code-card, .skill-category, .timeline, ' +
+        '.project-card, .hobby-project-card, .education-card, .cert-card, .contact-card, .contact-socials'
+    ));
 
     // 3. Smooth Scrolling for Anchor Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -142,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         `;
                         mediumArticlesContainer.innerHTML += articleCard;
                     });
+                    observeReveal(mediumArticlesContainer.querySelectorAll('.blog-card'));
                 } else {
                     mediumArticlesContainer.innerHTML = '<p class="blog-loading">No articles found.</p>';
                 }
