@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     observeReveal(document.querySelectorAll(
         '.section-header, .resume-cta-card, .about-text, .about-code-card, .skill-category, .timeline, ' +
-        '.project-card, .hobby-project-card, .education-card, .cert-card, .contact-card, .contact-socials'
+        '.project-card, .hobby-project-card, .client-card, .client-inquiry-card, .education-card, .cert-card, .contact-card, .contact-socials'
     ));
 
     // 3. Smooth Scrolling for Anchor Links
